@@ -1,0 +1,38 @@
+%nav.navbar.navbar-custom.navbar-fixed-top{role: "navigation"}
+  .container
+    .navbar-header
+      %button.navbar-toggle{type: "button","data-toggle"=> "collapse", "data-target"=> ".navbar-main-collapse"}
+        %i.fa.fa-bars
+      %a.navbar-brand.page-scroll{href: "#page-top"}
+        %i.fa.fa-play-circle
+        %span.light 
+        Endesapp
+    .collapse.navbar-collapse.navbar-right.navbar-main-collapse
+      %ul.nav.navbar-nav
+        %li.hidden
+          %a{href: "#page-top"}
+        %li
+          %a.page-scroll{href: "#about"} Mulai
+        %li
+          %a.page-scroll{href: "#download"} Tentang
+        %li
+          %a.page-scroll{href: "#contact"} Contact
+%header.intro
+  .intro-body
+    .container
+      .row
+        .col-md-8.col-md-offset-2
+          %h1.brand-heading EndesApp
+          %p.intro-text
+            Aplikasi Enkripsi dan Dekripsi File text berbasis Web
+            %br Klik tombol dibawah ini 
+            untuk mulai Enkripsi dan Dekripsi File
+          %a.btn.btn-circle.page-scroll{href: "#about"}
+            %i.fa.fa-angle-double-down.animated
+%section.container.content-section.text-center{id: "about"}
+  .row
+    .col-lg-8.col-lg-offset-2
+      %h2 Tentang Endesapp
+      %p 
+        Apa itu 
+        %a.page-scroll{href: "#page-top"} Endesapp ?
