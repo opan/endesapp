@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
-  get 'home/index'
+  get 'sistems/index'
+
   root 'home#index'
+
+  resources :home, :only => [:index] do
+    collection { get :modal_signup, to: "home#modal_signup" }
+    collection { get :modal_signin, to: "home#modal_signin" }
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

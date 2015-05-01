@@ -24,10 +24,11 @@
         .col-md-8.col-md-offset-2
           %h1.brand-heading EndesApp
           %p.intro-text
-            Aplikasi Enkripsi dan Dekripsi File text berbasis Web
+            Aplikasi Enkripsi dan Dekripsi File text 
+            %br berbasis Web
             %br Klik tombol dibawah ini 
             untuk mulai Enkripsi dan Dekripsi File
-          %a.btn.btn-circle.page-scroll{href: "#mulai"}
+          %a.btn.btn-circle.page-scroll{href: "#mulai", title: "Segera mulai enkripsi file kamu !"}
             %i.fa.fa-angle-double-down.animated
 %section.container.content-section.text-center{id: "tentang"}
   .row
@@ -63,13 +64,21 @@
         %p
           Silahkan Login terlebih dahulu untuk mulai menggunakan Endesapp. 
           %br Belum terdaftar ?
-          Kamu bisa dengan bebas mendaftar.
+          Kamu bisa dengan bebas mendaftar !
         %ul.list-inline
           %li
-            %a.btn.btn-default.btn-lg{href: "#"}
+            %a.btn.btn-default.btn-lg{href: "#", "data-toggle" => "modal", "data-target"=> "#modal_signin"}
               %i.fa.fa-fw.fa-sign-in 
               %span Masuk
           %li
-            %a.btn.btn-default.btn-lg{href: "#"} 
+            %a.btn.btn-default.btn-lg{href: "#", "data-toggle" => "modal", "data-target"=> "#modal_signup"} 
               %i.fa.fa-chevron-up.fa-fw
               %span Daftar
+
+#html_modal_signin
+#html_modal_signup
+
+:javascript
+  $(function(){
+    $('#html_modal_signin').load("#{modal_signin_home_index_path}");
+  });

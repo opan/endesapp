@@ -1,0 +1,21 @@
+.modal.fade#modal_signin{tabindex: "-1", role: "dialog", "aria-labelledby"=> "Masuk", "aria-hidden"=> "true"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{type: "button", "data-dismiss" => "modal", "aria-label"=> "Close"}
+          %span{"aria-hidden"=> "true"} &times;
+        %h3.modal-title#modal_label Masuk
+      .modal-body
+        %h5 Silahkan lengkapi data di bawah ini
+        = form_for :sign_in, remote: true, html: {class: "form-horizontal", id: "frm_sign_in"} do |f|
+          .form-group
+            = f.label :username, "Email" ,class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.email_field :username, class: "form-control", id: "username", placeholder: "Username"
+          .form-group
+            = f.label :password, "Password", class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.password_field :password, class: "form-control", id: "password", placeholder: "Password"
+      .modal-footer
+        %button.btn.btn-default{"data-dismiss"=> "modal"} Close
+        %button.btn.btn-default Save Changes
