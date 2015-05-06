@@ -14,6 +14,6 @@
 //= require jquery_ujs
 //= require bootstrap.min
 //= require grayscale
-//= require jquery.easing.min
+//= require bootstrap-datepicker
 //= require turbolinks
 //= require_tree .

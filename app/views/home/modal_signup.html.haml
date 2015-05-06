@@ -10,11 +10,26 @@
       .modal-body
         %h5 Silahkan lengkapi data di bawah ini
         = form_for :sign_up, remote: true, html: {class: "form-horizontal", id: "frm_sign_up"} do |f|
+          .form-group.required
+            = f.label :nickname, "Nickname" ,class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.text_field :nickname, class: "form-control", id: "nickname", placeholder: "Nickname"
+          .form-group.required
+            = f.label :fullname, "Fullname" ,class: "col-sm-2 control-label"
+            .col-sm-10
+              = f.text_field :fullname, class: "form-control", id: "fullname", placeholder: "Full Name"
           .form-group
-            = f.label :username, "Email" ,class: "col-sm-2 control-label"
+            = f.label :birthdate, "Birthdate" ,class: "col-sm-2 control-label"
+            .col-sm-4
+              = f.text_field :birthdate, class: "form-control", id: "birthdate", placeholder: "Birthdate"
+            = f.label :gender, "Gender" ,class: "col-sm-2 control-label"
+            .col-sm-4
+              = f.select :gender, options_from_collection_for_select(@list_gender, 'lov_id','lov_name') , {include_blank: false}, class: "form-control", id: "gender", placeholder: "Gender"
+          .form-group.required
+            = f.label :username, "Username" ,class: "col-sm-2 control-label"
             .col-sm-10
               = f.email_field :username, class: "form-control", id: "username", placeholder: "Username"
-          .form-group
+          .form-group.required
             = f.label :password, "Password", class: "col-sm-2 control-label"
             .col-sm-10
               = f.password_field :password, class: "form-control", id: "password", placeholder: "Password"
@@ -25,3 +40,11 @@
         %button.btn.btn-default{"data-dismiss"=> "modal"}
           %i.fa-close.fa.fa-fw
           %span Close
+:javascript 
+  $(function(){
+    $('#birthdate').datepicker({
+      format: "dd MM yyyy",
+      clearBtn: true,
+      autoclose: true
+    });
+  });

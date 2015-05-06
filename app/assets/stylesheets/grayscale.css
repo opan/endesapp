@@ -376,9 +376,12 @@ body {
 Start custom CSS. Opan
 */
 .modal-content {
-   background-color: rgba(29, 24, 24, 0.97);
+    background-color: rgba(29, 24, 24, 0.97);
 }
 .form-group.required .control-label:after{
     content: "*";
     color: red;
+}
+.datepicker {
+    background-color: #8D8585;
 }

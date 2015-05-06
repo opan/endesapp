@@ -11,7 +11,7 @@
         %h5 Silahkan lengkapi data di bawah ini
         = form_for :sign_in, remote: true, html: {class: "form-horizontal", id: "frm_sign_in"} do |f|
           .form-group.required
-            = f.label :username, "Email" ,class: "col-sm-2 control-label"
+            = f.label :username, "Username" ,class: "col-sm-2 control-label"
             .col-sm-10
               = f.email_field :username, class: "form-control", id: "username", placeholder: "Username", required: "required"
           .form-group.required
