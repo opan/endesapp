@@ -382,6 +382,15 @@ Start custom CSS. Opan
     content: "*";
     color: red;
 }
+.control-label.required:after{
+    content: "*";
+    color: red;
+}
 .datepicker {
     background-color: #8D8585;
 }
+/*.datepicker-dropdown.datepicker-orient-bottom:after{
+    border-top-width: 6px;
+    border-top-style: solid;
+    border-top-color: #8D8585;
+}*/

@@ -19,30 +19,34 @@
             .col-sm-10
               = f.text_field :fullname, class: "form-control", id: "fullname", placeholder: "Full Name"
           .form-group
-            = f.label :birthdate, "Birthdate" ,class: "col-sm-2 control-label"
+            = f.label :birthdate, "Birthdate" ,class: "col-sm-2 control-label required"
             .col-sm-4
-              = f.text_field :birthdate, class: "form-control", id: "birthdate", placeholder: "Birthdate"
-            = f.label :gender, "Gender" ,class: "col-sm-2 control-label"
+              .input-group.date#birthdate_container
+                = f.text_field :birthdate, class: "form-control", id: "birthdate", placeholder: "Birthdate"
+                %span.input-group-addon
+                  %i.fa-calendar.fa.fa-fw
+            = f.label :gender, "Gender" ,class: "col-sm-2 control-label required"
             .col-sm-4
               = f.select :gender, options_from_collection_for_select(@list_gender, 'lov_id','lov_name') , {include_blank: false}, class: "form-control", id: "gender", placeholder: "Gender"
           .form-group.required
             = f.label :username, "Username" ,class: "col-sm-2 control-label"
             .col-sm-10
-              = f.email_field :username, class: "form-control", id: "username", placeholder: "Username"
+              = f.email_field :username, class: "form-control", id: "username_signup", placeholder: "example@email.com"
           .form-group.required
             = f.label :password, "Password", class: "col-sm-2 control-label"
             .col-sm-10
-              = f.password_field :password, class: "form-control", id: "password", placeholder: "Password"
+              = f.password_field :password, class: "form-control", id: "password_signup", placeholder: "Password"
       .modal-footer
         %button.btn.btn-default
           %i.fa.fa-chevron-up.fa-fw
           %span Daftar
         %button.btn.btn-default{"data-dismiss"=> "modal"}
           %i.fa-close.fa.fa-fw
-          %span Close
+          %span Tutup
+
 :javascript 
   $(function(){
-    $('#birthdate').datepicker({
+    $('#birthdate_container.input-group.date').datepicker({
       format: "dd MM yyyy",
       clearBtn: true,
       autoclose: true
