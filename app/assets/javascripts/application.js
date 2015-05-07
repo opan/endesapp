@@ -15,5 +15,7 @@
 //= require bootstrap.min
 //= require grayscale
 //= require bootstrap-datepicker
+//= require jquery.validate
+//= require additional-methods
 //= require turbolinks
 //= require_tree .

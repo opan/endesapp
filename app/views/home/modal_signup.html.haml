@@ -51,4 +51,13 @@
       clearBtn: true,
       autoclose: true
     });
+
+    $('#frm_sign_up').validate({
+      rules: {
+        nickname: {
+          required: true
+        }
+      }
+    });
   });
+
