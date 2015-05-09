@@ -7,5 +7,10 @@ class AUser < ActiveRecord::Base
   validates_presence_of :username, :password, :encrypted_password, :nickname, :fullname, 
                         :gender, :created_at, :updated_at
   # validates_numericality_of
+  validates_confirmation_of :password, :message => "should mathc confirmation."
+
+  def self.
+    
+  end
 
 end

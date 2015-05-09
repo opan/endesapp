@@ -9,35 +9,39 @@
           %span Daftar
       .modal-body
         %h5 Silahkan lengkapi data di bawah ini
-        = form_for :sign_up, remote: true, html: {class: "form-horizontal", id: "frm_sign_up"} do |f|
-          .form-group.required
-            = f.label :nickname, "Nickname" ,class: "col-sm-2 control-label"
-            .col-sm-10
-              = f.text_field :nickname, class: "form-control", id: "nickname", placeholder: "Nickname"
-          .form-group.required
-            = f.label :fullname, "Fullname" ,class: "col-sm-2 control-label"
-            .col-sm-10
-              = f.text_field :fullname, class: "form-control", id: "fullname", placeholder: "Full Name"
+        = form_tag(sign_up_sistems_path, method: :post, remote: true, authenticity_token: form_authenticity_token,class: "form-horizontal", id: "frm_sign_up") do
           .form-group
-            = f.label :birthdate, "Birthdate" ,class: "col-sm-2 control-label required"
+            = label_tag "nickname", "Nickname", class: "col-sm-3 control-label required"
+            .col-sm-9
+              = text_field_tag "nickname", nil, placeholder: "Input your nickname", class: "form-control"
+          .form-group
+            = label_tag "fullname", "Fullname", class: "col-sm-3 control-label required"
+            .col-sm-9
+              = text_field_tag "fullname", nil, placeholder: "Your fullname please", class: "form-control"
+          .form-group
+            = label_tag "birthdate", "Birthdate", class: "col-sm-3 control-label"
             .col-sm-4
               .input-group.date#birthdate_container
-                = f.text_field :birthdate, class: "form-control", id: "birthdate", placeholder: "Birthdate"
+                = text_field_tag "birthdate", nil, class: "form-control", placeholder: "Birthdate"
                 %span.input-group-addon
                   %i.fa-calendar.fa.fa-fw
-            = f.label :gender, "Gender" ,class: "col-sm-2 control-label required"
-            .col-sm-4
-              = f.select :gender, options_from_collection_for_select(@list_gender, 'lov_id','lov_name') , {include_blank: false}, class: "form-control", id: "gender", placeholder: "Gender"
-          .form-group.required
-            = f.label :username, "Username" ,class: "col-sm-2 control-label"
-            .col-sm-10
-              = f.email_field :username, class: "form-control", id: "username_signup", placeholder: "example@email.com"
-          .form-group.required
-            = f.label :password, "Password", class: "col-sm-2 control-label"
-            .col-sm-10
-              = f.password_field :password, class: "form-control", id: "password_signup", placeholder: "Password"
+            = label_tag "gender", "Gender", class: "col-sm-2 control-label required"
+            .col-sm-3
+              = select_tag "gender", options_from_collection_for_select(@list_gender, 'lov_id','lov_name') , include_blank: false, class: "form-control", id: "gender", placeholder: "Gender"
+          .form-group
+            = label_tag "username", "Username", class: "col-sm-3 control-label required"
+            .col-sm-9
+              = email_field_tag "username", nil, class: "form-control", placeholder: "youremail@example.com"
+          .form-group
+            = label_tag "password", "Password", class: "col-sm-3 control-label required"
+            .col-sm-9
+              = password_field_tag "password", nil, class: "form-control", placeholder: "Your password"
+          .form-group
+            = label_tag "password_confirmation", "Confirm Password", class: "col-sm-3 control-label required"
+            .col-sm-9
+              = password_field_tag "password_confirmation", nil, class: "form-control", placeholder: "Your password"
       .modal-footer
-        %button.btn.btn-default
+        %button.btn.btn-default#btn_sign_up
           %i.fa.fa-chevron-up.fa-fw
           %span Daftar
         %button.btn.btn-default{"data-dismiss"=> "modal"}
@@ -52,11 +56,46 @@
       autoclose: true
     });
 
+    $('#btn_sign_up').click(function(){
+      $('#frm_sign_up').submit();
+    });
+
     $('#frm_sign_up').validate({
       rules: {
         nickname: {
+          required: true,
+          maxlength: 100
+        },
+        fullname: {
+          required: true
+        },
+        password: {
+          required: true,
+          rangelength: [6,20]
+        },
+        password_confirmation: {
+          equalTo: '#password' 
+        },
+        username: {
           required: true
         }
+      },
+      messages: {
+        nickname: "Please input your nickname.",
+        fullname: "Please input your fullname.",
+        username: {
+          required: "Please provide your email as username."
+        },
+        password: {
+          required: "Please type a password.",
+          rangelength: "Password must be between 6 and 20 characters."
+        },
+        password_confirmation: {
+          equalTo: "Password do not match."
+        }
+      },
+      submitHandler: function(form){
+        form.submit();
       }
     });
   });

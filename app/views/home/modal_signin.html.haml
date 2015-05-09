@@ -9,15 +9,17 @@
           %span Masuk
       .modal-body
         %h5 Silahkan lengkapi data di bawah ini
-        = form_for :sign_in, remote: true, html: {class: "form-horizontal", id: "frm_sign_in"} do |f|
+        = form_tag('/', method: :post, remote: true, class: "form-horizontal", id: "frm_sign_in") do
           .form-group.required
-            = f.label :username, "Username" ,class: "col-sm-2 control-label"
+            = label_tag "username", "Username" ,class: "col-sm-2 control-label"
             .col-sm-10
-              = f.email_field :username, class: "form-control", id: "username_signin", placeholder: "Username", required: "required"
+              = email_field_tag "username", nil,class: "form-control", id: "username_signin", placeholder: "Username", required: "required"
           .form-group.required
-            = f.label :password, "Password", class: "col-sm-2 control-label"
+            = label_tag "password", "Password", class: "col-sm-2 control-label"
             .col-sm-10
-              = f.password_field :password, class: "form-control", id: "password_signin", placeholder: "Password", required: "required"
+              = password_field_tag "password",nil ,class: "form-control", id: "password_signin", placeholder: "Password", required: "required"
+          
+
       .modal-footer
         %button.btn.btn-default
           %i.fa.fa-fw.fa-sign-in
