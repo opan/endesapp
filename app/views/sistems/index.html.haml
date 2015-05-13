@@ -1,2 +1,79 @@
-%h1 Sistems#index
-%p Find me in app/views/sistems/index.html.haml
+%nav.navbar.navbar-custom.navbar-fixed-top{role: "navigation"}
+  .container
+    .navbar-header
+      %button.navbar-toggle{type: "button","data-toggle"=> "collapse", "data-target"=> ".navbar-main-collapse"}
+        %i.fa.fa-bars
+      %a.navbar-brand.page-scroll{href: "#page-top"}
+        %i.fa.fa-play-circle
+        %span.light 
+        Endesapp
+    .collapse.navbar-collapse.navbar-right.navbar-main-collapse
+      %ul.nav.navbar-nav
+        %li.hidden
+          %a{href: "#page-top"}
+        %li
+          %a.page-scroll{href: "#tentang"} Tentang
+        %li
+          %a.page-scroll{href: "#mulai"} Mulai
+%header.intro
+  .intro-body
+    .container
+      .row
+        .col-md-8.col-md-offset-2
+          %h1.brand-heading EndesApp
+          %p.intro-text
+            Aplikasi Enkripsi dan Dekripsi File text 
+            %br berbasis Web
+%section.container.content-section.text-center{id: "tentang"}
+  .row
+    .col-lg-8.col-lg-offset-2
+      %h2 Tentang Endesapp
+      %p 
+        Apa itu 
+        %a.page-scroll{href: "#page-top"} Endesapp ?
+        %br 
+          %a.page-scroll{href: "#page-top"}Endesapp 
+          adalah akronim dari Encryption and Decryption Application.
+      %p
+        %a.page-scroll{href: "#page-top"}Endesapp 
+        adalah sebuah aplikasi berbasis Web yang dibuat 
+        bertujuan untuk mempermudah pekerjaan
+        seseorang atau instansi yang sangat membutuhkan akan kerahasiaan sebuah informasi yang mereka miliki. 
+      %p 
+        Dalam hal ini misalnya saja sebuah file text yang di kirim melalui e-mail, bisa saja
+        seseorang membajak email tersebut lalu membuka 
+        %br dan membaca isi file tersebut ?
+      %p 
+        Dengan adanya 
+        %a.page-scroll{href: "#page-top"}Endesapp
+        , resiko bocornya sebuah informasi rahasia yang mereka miliki tentu bisa jauh dikurangi. Mereka (hacker) bisa saja membuka
+        file tersebut, namun mereka tentu tidak akan bisa membaca isi file tersebut jika mereka tidak tahu kode 
+        dekripsi dari file tersebut.
+
+%section.content-section.text-center{id: "mulai"}
+  .download-section
+    .container
+      .col-lg-8.col-lg-offset-2
+        %h2 Mulai Enkripsi dan Dekripsi File
+        %p
+          Silahkan Login terlebih dahulu untuk mulai menggunakan Endesapp. 
+          %br Belum terdaftar ?
+          Kamu bisa dengan bebas mendaftar !
+        %ul.list-inline
+          %li
+            %a.btn.btn-default.btn-lg{href: "#", "data-toggle" => "modal", "data-target"=> "#modal_signin"}
+              %i.fa.fa-fw.fa-sign-in 
+              %span Masuk
+          %li
+            %a.btn.btn-default.btn-lg{href: "#", "data-toggle" => "modal", "data-target"=> "#modal_signup"} 
+              %i.fa.fa-chevron-up.fa-fw
+              %span Daftar
+
+#html_modal_signin
+#html_modal_signup
+
+:javascript
+  $(function(){
+    $('#html_modal_signin').load("#{modal_signin_home_index_path}");
+    $('#html_modal_signup').load("#{modal_signup_home_index_path}");
+  });

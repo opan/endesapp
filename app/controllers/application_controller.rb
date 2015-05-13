@@ -8,4 +8,21 @@ class ApplicationController < ActionController::Base
   def ac_current_date
     return DateTime.now.strftime(DATETIME_FORMAT).to_time
   end
+
+  protected
+
+  def authenticate_user_login?
+    unless session[:uniq_user_session].blank? 
+      redirect_to root_url
+    end
+  end
+
+  def authenticate_user_session?
+    unless session[:uniq_user_session].blank?
+      a_users   = AUser.find(session[:user_id_session])
+      flash[:notice] = "#{SUCCESS_SIGNIN}#{a_users.nickname}"
+
+      redirect_to home_index_path
+    end
+  end
 end
