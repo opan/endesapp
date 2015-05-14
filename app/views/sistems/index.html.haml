@@ -15,6 +15,8 @@
           %a.page-scroll{href: "#tentang"} Tentang
         %li
           %a.page-scroll{href: "#mulai"} Mulai
+        %li
+          %a{href: "#{sign_out_sistems_path}"} Sign Out
 %header.intro
   .intro-body
     .container
@@ -73,7 +75,7 @@
 #html_modal_signup
 
 :javascript
-  $(function(){
-    $('#html_modal_signin').load("#{modal_signin_home_index_path}");
-    $('#html_modal_signup').load("#{modal_signup_home_index_path}");
-  });
+  // $(function(){
+  //   $('#html_modal_signin').load("#{modal_signin_home_index_path}");
+  //   $('#html_modal_signup').load("#{modal_signup_home_index_path}");
+  // });

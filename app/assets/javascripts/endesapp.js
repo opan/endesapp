@@ -17,5 +17,4 @@ $(function(){
          .prop("checked", "")
          .end();
   });
-
 });

@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   resources :sistems, :only => [:index] do
     collection { post :sign_in,   to: "sistems#sign_in"}
     collection { post :sign_up,   to: "sistems#sign_up"}
-    collection { post :sign_out,  to: "sistems#sign_out"}
+    collection { get  :sign_out,  to: "sistems#sign_out"}
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

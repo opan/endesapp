@@ -1,4 +1,8 @@
 class HomeController < ApplicationController
+  before_action do |controller|
+    controller.authenticate_user_session?
+  end
+
   def index
     
   end

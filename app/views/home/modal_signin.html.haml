@@ -9,21 +9,50 @@
           %span Masuk
       .modal-body
         %h5 Silahkan lengkapi data di bawah ini
-        = form_tag('/', method: :post, remote: true, class: "form-horizontal", id: "frm_sign_in") do
+        = form_tag(sign_in_sistems_path, method: :post, authenticity_token: form_authenticity_token, class: "form-horizontal", id: "frm_sign_in") do
           .form-group.required
-            = label_tag "username", "Username" ,class: "col-sm-2 control-label"
+            = label_tag "username_signin", "Username" ,class: "col-sm-2 control-label"
             .col-sm-10
-              = email_field_tag "username", nil,class: "form-control", id: "username_signin", placeholder: "Username", required: "required"
+              = email_field_tag "username_signin", nil,class: "form-control", placeholder: "Username"
           .form-group.required
-            = label_tag "password", "Password", class: "col-sm-2 control-label"
+            = label_tag "password_signin", "Password", class: "col-sm-2 control-label"
             .col-sm-10
-              = password_field_tag "password",nil ,class: "form-control", id: "password_signin", placeholder: "Password", required: "required"
+              = password_field_tag "password_signin",nil ,class: "form-control", placeholder: "Password"
           
 
       .modal-footer
-        %button.btn.btn-default
+        %button.btn.btn-default#btn_sign_in
           %i.fa.fa-fw.fa-sign-in
           %span Masuk
         %button.btn.btn-default{"data-dismiss"=> "modal"}
           %i.fa-close.fa.fa-fw
           %span Tutup
+:javascript
+  $(function(){
+    $('#frm_sign_in').validate({
+      rules: {
+        password_signin: {
+          required: true
+        },
+        username_signin: {
+          required: true
+        }
+      },
+      messages: {
+        username_signin: {
+          required: "Please provide your email as username."
+        },
+        password_signin: {
+          required: "Please type a password."
+        }
+      },
+      submitHandler: function(form){
+        form.submit();
+      }
+    });
+    
+    $('#btn_sign_in').click(function(){
+      $('#frm_sign_in').submit();
+    });
+
+  });

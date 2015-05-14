@@ -9,7 +9,7 @@
           %span Daftar
       .modal-body
         %h5 Silahkan lengkapi data di bawah ini
-        = form_tag(sign_up_sistems_path, method: :post, remote: true, authenticity_token: form_authenticity_token,class: "form-horizontal", id: "frm_sign_up") do
+        = form_tag(sign_up_sistems_path, method: :post,authenticity_token: form_authenticity_token,class: "form-horizontal", id: "frm_sign_up") do
           .form-group
             = label_tag "nickname", "Nickname", class: "col-sm-3 control-label required"
             .col-sm-9
@@ -55,7 +55,7 @@
       clearBtn: true,
       autoclose: true
     });
-
+    
     $('#btn_sign_up').click(function(){
       $('#frm_sign_up').submit();
     });

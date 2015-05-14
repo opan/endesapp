@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def authenticate_user_login?
-    unless session[:uniq_user_session].blank? 
+    if session[:uniq_user_session].blank? 
       redirect_to root_url
     end
   end
@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
       a_users   = AUser.find(session[:user_id_session])
       flash[:notice] = "#{SUCCESS_SIGNIN}#{a_users.nickname}"
 
-      redirect_to home_index_path
+      redirect_to sistems_path
     end
   end
 end

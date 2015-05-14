@@ -8,20 +8,63 @@ class SistemsController < ApplicationController
   end
 
   def sign_in
-    
+    username        = params[:username_signin]
+    password        = params[:password_signin]
+
+    if password.present?
+      opts          = {:username => username, :password => password}
+      debugger
+      @a_user       = authenticate_user(opts)
+      
+      if @a_user
+        session[:user_id_session]  = @a_user.id
+        session[:uniq_user_session]= generate_secure_string
+
+        create_user_log  
+
+        flash[:success] = "#{SUCCESS_SIGNIN}#{@a_user.nickname}"
+        redirect_to sistems_path
+      else
+        flash[:error] = INVALID_SIGNIN
+        redirect_to root_path
+      end  
+    else
+      flash[:error] = PASS_BLANK
+      redirect_to root_path
+    end
   end
 
   def sign_out
-    
+    a_logs          = ALog.where(user_id: session[:user_id_session], uniq_secure_session: session[:uniq_user_session]).take
+
+    if a_logs.update_attributes(
+        updated_at: ac_current_date, 
+        log_out_at: ac_current_date
+      )
+      @message      = SUCCESS_SIGNOUT
+
+      session[:user_id_session]   = nil
+      session[:uniq_user_session] = nil
+
+      flash[:success] = @message
+      redirect_to root_path
+    else
+      @message      = a_logs.errors.full_messages
+
+      flash[:error] = @message
+      redirect_to sistems_path
+    end
   end
 
   def sign_up
     enc_password    = encrypt_password(params[:password])
+    password        = enc_password[:salt]
+    encrypt_password= enc_password[:enc_password]
 
     @a_user         = AUser.new(
                       username:           params[:username], 
-                      password:           generate_salt, 
-                      encrypted_password: enc_password, 
+                      password:           password, 
+                      encrypted_password: encrypt_password, 
                       nickname:           params[:nickname], 
                       fullname:           params[:fullname], 
                       gender:             params[:gender], 
