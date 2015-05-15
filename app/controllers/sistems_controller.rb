@@ -4,7 +4,19 @@ class SistemsController < ApplicationController
   end
 
   def index
+    @list_enc_type    = ALov.where(lov_cat: "enc_type")
+  end
 
+  def encrypt_form
+    @list_enc_type    = ALov.where(lov_cat: "enc_type")
+
+    render json: {encrypt_form: render_to_string(partial: "encrypt_form", locals: {list_enc_type: @list_enc_type})}
+  end
+
+  def decrypt_form
+    @list_enc_type    = ALov.where(lov_cat: "enc_type")
+
+    render json: {decrypt_form: render_to_string(partial: "decrypt_form", locals: {list_enc_type: @list_enc_type})}
   end
 
   def sign_in

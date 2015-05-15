@@ -1,0 +1,63 @@
+.panel.panel-danger
+  .panel-heading
+    %h3 Form Decryption
+  .panel-body
+    = form_tag('/', method: :post, authenticity_token: form_authenticity_token, remote: true, class: "form-horizontal", id: 'frm_decrypt', multipart: true) do
+      .form-group
+        = label_tag "file_name", "File Name", class: "control-label col-sm-3 required"
+        .col-sm-4
+          .input-group
+            %span.input-group-btn
+              %span.btn.btn-default.btn-file
+                Pilih File
+                &hellip;
+                = file_field_tag "file_name"
+                / %input{type: "file"}
+            = text_field_tag "temp", nil, class: "form-control", readonly: true
+            / # = file_field_tag "file_name", class: "form-control", placeholder: "Pilih file."
+          %span.help-block.file-name
+            Pilih file yang ingin di dekripsi. (*csv/*CSV)
+      .form-group
+        = label_tag "decryption_type", "Decryption Type", class: "control-label col-sm-3 required"
+        .col-sm-4
+          = select_tag "decryption_type", options_from_collection_for_select(list_enc_type, 'lov_id','lov_name') , include_blank: false, class: "form-control", id: "decryption_type", placeholder: "Decryption Type"
+      .form-group
+        .col-sm-offset-3.col-sm-5
+          %a.btn.btn-default#decrypt_btn
+            %i.fa.fa-fw.fa-unlock
+            %span Decrypt File
+:javascript
+  $(function(){
+    $('#decrypt_btn').click(function(){
+      $('#frm_decrypt').submit();
+    });
+
+    $('#frm_decrypt').validate({
+      rules: {
+        file_name: {
+          required: true
+        },
+        decryption_type: {
+          required: true
+        }
+      },
+      messages: {
+        file_name: {
+          required: "Please choose file you to encrypt."
+        },
+        decryption_type: {
+          required: "Please choose encryption type you want to used."
+        }
+      },
+      errorPlacement: function(error, element){
+        if (element.attr("name") == "file_name"){
+          error.insertAfter(".file-name");
+        }else{
+          error.insertAfter(element);
+        }
+      },
+      submitHandler: function(form){
+        
+      }
+    });
+  });

@@ -285,6 +285,10 @@ a:focus {
         padding-top: 250px;
     }
 
+    .content-section-custom {
+        padding-top: 250px;
+    }
+
     .download-section {
         padding: 100px 0;
     }
@@ -379,11 +383,11 @@ Start custom CSS. Opan
 .modal-content {
     background-color: rgba(29, 24, 24, 0.97);
 }
-.form-group.required .control-label:after{
+.form-group.required .control-label:after {
     content: "*";
     color: red;
 }
-.control-label.required:after{
+.control-label.required:after {
     content: "*";
     color: red;
 }
@@ -395,3 +399,45 @@ Start custom CSS. Opan
     border-top-style: solid;
     border-top-color: #8D8585;
 }*/
+.dropdown-menu {
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.dropdown-menu li a{
+    color: #fff;
+}
+
+.content-section-custom {
+    /*position: relative;*/
+    padding-top: 200px;
+    padding-bottom: 400px;
+}
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 100px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  background: red;
+  cursor: inherit;
+  display: block;
+}
+
+input[readonly] {
+  background-color: white !important;
+  cursor: text !important;
+}
+
+.panel-body {
+    background-color: rgba(14, 14, 14, 1);
+}

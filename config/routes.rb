@@ -8,9 +8,11 @@ Rails.application.routes.draw do
   end
 
   resources :sistems, :only => [:index] do
-    collection { post :sign_in,   to: "sistems#sign_in"}
-    collection { post :sign_up,   to: "sistems#sign_up"}
-    collection { get  :sign_out,  to: "sistems#sign_out"}
+    collection { post :sign_in      ,   to: "sistems#sign_in"}
+    collection { post :sign_up      ,   to: "sistems#sign_up"}
+    collection { get  :sign_out     ,  to: "sistems#sign_out"}
+    collection { get  :encrypt_form ,  to: "sistems#encrypt_form"}
+    collection { get  :decrypt_form ,  to: "sistems#decrypt_form"}
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

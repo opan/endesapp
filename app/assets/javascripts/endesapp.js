@@ -4,7 +4,7 @@ $(function(){
     $('#page-top').removeAttr("style");
   });
 
-  // clear form saat open modal
+  // start clear form saat open modal
   $('[data-dismiss=modal]').on('click', function (e) {
     var $t = $(this),
         target = $t[0].href || $t.data("target") || $t.parents('.modal') || [];
@@ -17,4 +17,58 @@ $(function(){
          .prop("checked", "")
          .end();
   });
+  // stop clear form saat open modal
+
+  // start custom input type=file
+
+  $(document).on('change', '.btn-file :file', function() {
+    var input = $(this),
+        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        console.log(numFiles);
+        console.log(label);
+    input.trigger('fileselect', [numFiles, label]);
+    input.parents('.input-group').find(':text').val(label);
+  });
+
+  // $(document).ready( function() {
+  //     $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+  //         alert('opan');
+  //         var input = $(this).parents('.input-group').find(':text'),
+  //             log = numFiles > 1 ? numFiles + ' files selected' : label;
+          
+  //         if( input.length ) {
+  //             input.val(log);
+  //         } else {
+  //             if( log ) alert(log);
+  //         }
+          
+  //     });
+  // });
+  // stop custom input type=file
+
+
+  // start sistem index
+  $('#btn_encrypt').click(function(){
+    $.get('/sistems/encrypt_form', function(data){
+      $('#content').fadeOut(500, function(){
+        $('#content').empty();
+        $('#content').append(data.encrypt_form);
+      });
+      $('#content').fadeIn(500);
+    });
+  });
+
+  $('#btn_decrypt').click(function(){
+    $.get('/sistems/decrypt_form', function(data){
+      $('#content').fadeOut(500, function(){
+        $('#content').empty();
+        $('#content').append(data.decrypt_form);
+      });
+      $('#content').fadeIn(500);
+    });
+  });
+  // stop sistem index
+
+
 });
