@@ -26,10 +26,19 @@
           %a.btn.btn-default#decrypt_btn
             %i.fa.fa-fw.fa-unlock
             %span Decrypt File
+          %a.btn.btn-default#cancel
+            %i.fa.fa-fw.fa-close
+            %span Cancel
 :javascript
   $(function(){
     $('#decrypt_btn').click(function(){
       $('#frm_decrypt').submit();
+    });
+
+    $('#cancel').click(function(){
+      $('#content').fadeOut(500,function(){
+        $(this).empty();
+      });
     });
 
     $('#frm_decrypt').validate({
@@ -46,7 +55,7 @@
           required: "Please choose file you to encrypt."
         },
         decryption_type: {
-          required: "Please choose encryption type you want to used."
+          required: "Please choose decryption type you want to used."
         }
       },
       errorPlacement: function(error, element){

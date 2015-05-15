@@ -25,8 +25,6 @@ $(function(){
     var input = $(this),
         numFiles = input.get(0).files ? input.get(0).files.length : 1,
         label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
-        console.log(numFiles);
-        console.log(label);
     input.trigger('fileselect', [numFiles, label]);
     input.parents('.input-group').find(':text').val(label);
   });

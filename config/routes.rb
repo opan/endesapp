@@ -15,6 +15,10 @@ Rails.application.routes.draw do
     collection { get  :decrypt_form ,  to: "sistems#decrypt_form"}
   end
 
+  resources :m_encryptions, :only => [:index] do
+    collection { post :encrypt_file, to: "m_encryptions#encrypt_file"}
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

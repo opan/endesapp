@@ -26,10 +26,19 @@
           %a.btn.btn-default#encrypt_btn
             %i.fa.fa-fw.fa-lock
             %span Encrypt File
+          %a.btn.btn-default#cancel
+            %i.fa.fa-fw.fa-close
+            %span Cancel
 :javascript
   $(function(){
     $('#encrypt_btn').click(function(){
       $('#frm_encrypt').submit();
+    });
+
+    $('#cancel').click(function(){
+      $('#content').fadeOut(500,function(){
+        $(this).empty();
+      });
     });
 
     $('#frm_encrypt').validate({
@@ -57,7 +66,14 @@
         }
       },
       submitHandler: function(form){
-        
+        $.ajax({
+          url: "#{encrypt_file_m_encryptions_path}",
+          method: "post",
+          async: false,
+          data: new FormData(form),
+          processData: false,
+          contentType: false
+        });
       }
     });
   });
