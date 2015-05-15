@@ -1,0 +1,2 @@
+class MDecryptionsController < ApplicationController
+end

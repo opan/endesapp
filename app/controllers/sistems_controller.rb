@@ -13,7 +13,7 @@ class SistemsController < ApplicationController
 
     if password.present?
       opts          = {:username => username, :password => password}
-      debugger
+      
       @a_user       = authenticate_user(opts)
       
       if @a_user
