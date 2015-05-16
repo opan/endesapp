@@ -20,7 +20,37 @@
       .form-group
         = label_tag "encryption_type", "Encryption Type", class: "control-label col-sm-3 required"
         .col-sm-4
-          = select_tag "encryption_type", options_from_collection_for_select(list_enc_type, 'lov_id','lov_name') , include_blank: false, class: "form-control", id: "encryption_type", placeholder: "Encryption Type"
+          = select_tag "encryption_type", options_from_collection_for_select(list_enc_type, 'lov_id','lov_name', selected) , include_blank: false, class: "form-control", id: "encryption_type", placeholder: "Encryption Type"
+          %span.help-block
+            Pilih tipe enkripsi.
+      .form-group
+        .col-sm-offset-3.col-sm-8
+          .checkbox
+            = label_tag("is_keep_file") do
+              = check_box_tag "is_keep_file", true, false
+              Keep File?
+          %span.help-block
+            Mengizinkan Endesapp menyimpan hasil enksripsi.
+      .form-group
+        .col-sm-offset-3.col-sm-9
+          .checkbox
+            = label_tag("is_custom_key") do
+              = check_box_tag "is_custom_key", true, true
+              Custom Key ?
+          %span.help-block
+            Gunakan keyword kamu untuk di gunakan sebagai key enkripsi.
+      .form-group.container-custom
+        = label_tag "custom_key", "Custom Key", class: "control-label col-sm-3 required"
+        .col-sm-8
+          = password_field_tag "custom_key", nil, class: "form-control", id: "custom_key", placeholder: "Your Custom Key"
+      .form-group.container-custom
+        = label_tag "custom_iv", "Custom Init Vector", class: "control-label col-sm-3 required"
+        .col-sm-8
+          = password_field_tag "custom_iv", nil, class: "form-control", id: "custom_iv", placeholder: "Your Custom Init Vector"
+          %span.help-block.custom-iv
+            Untuk alasan keamanan, custom key dan custom iv kamu akan turut di enkripsi.
+      .form-group
+        .col-sm-offset-3.col-sm-5
       .form-group
         .col-sm-offset-3.col-sm-5
           %a.btn.btn-default#encrypt_btn
@@ -33,6 +63,16 @@
   $(function(){
     $('#encrypt_btn').click(function(){
       $('#frm_encrypt').submit();
+    });
+
+    $('#is_custom_key').click(function(){
+      if (this.checked){
+        add_rules();
+        $('.container-custom').slideToggle('slow');
+      }else{
+        clear_rules();
+        $('.container-custom').slideToggle('slow');
+      }
     });
 
     $('#cancel').click(function(){
@@ -48,6 +88,14 @@
         },
         encryption_type: {
           required: true
+        },
+        custom_key: {
+          required: true,
+          minlength: 10
+        },
+        custom_iv: {
+          required: true,
+          minlength: 8
         }
       },
       messages: {
@@ -56,11 +104,19 @@
         },
         encryption_type: {
           required: "Please choose encryption type you want to used."
+        },
+        custom_key: {
+          required: "Please input your custom key."
+        },
+        custom_iv: {
+          required: "Please input your custom init vector."
         }
       },
       errorPlacement: function(error, element){
         if (element.attr("name") == "file_name"){
           error.insertAfter(".file-name");
+        }else if (element.attr("name") == "custom_iv"){
+          error.insertAfter(".custom-iv");
         }else{
           error.insertAfter(element);
         }
@@ -77,3 +133,26 @@
       }
     });
   });
+
+  function clear_rules(){
+    $('#custom_key').rules('remove');
+    $('#custom_iv').rules('remove');
+  }
+
+  function add_rules(){
+    $('#custom_key').rules('add',{
+      required: true,
+      minlength: 10,
+      messages: {
+        required: "Please input your custom key."
+      }
+    });
+
+    $('#custom_iv').rules('add',{
+      required: true,
+      minlength: 8,
+      messages: {
+        required: "Please input your custom init vector."
+      }
+    });
+  }

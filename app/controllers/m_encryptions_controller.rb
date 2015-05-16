@@ -3,7 +3,7 @@ class MEncryptionsController < ApplicationController
   end
 
   def encrypt_file
-    debugger
+    
     render json: {message: @message}
   end
 end

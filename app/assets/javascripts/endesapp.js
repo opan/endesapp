@@ -19,6 +19,15 @@ $(function(){
   });
   // stop clear form saat open modal
 
+  // start submit form dengan 'enter'
+  $('input').keypress(function(e){
+    if (e.which == 13){
+      e.preventDefault();
+      $('form').submit();
+    }
+  });
+  // stop submit form dengan 'enter'
+
   // start custom input type=file
 
   $(document).on('change', '.btn-file :file', function() {
