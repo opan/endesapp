@@ -1,4 +1,19 @@
 $(function(){
+  // start setting default untuk bootstrap-notify
+  $.notifyDefaults({
+    allow_dismiss: true,
+    animate: {
+      enter: "animated fadeInRight",
+      exit: "animated fadeOutRight"
+    },
+    newest_on_top: true,
+    placement: {
+      from: "top",
+      align: "center"
+    }
+  });
+  // stop setting default untuk bootstrap-notify
+
   // hapus margin-right yang tercreate auto setelah close modal.
   $('#modal_signin, #modal_signup').on("hidden.bs.modal", function(){
     $('#page-top').removeAttr("style");

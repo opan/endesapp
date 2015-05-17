@@ -12,9 +12,7 @@
                 Pilih File
                 &hellip;
                 = file_field_tag "file_name"
-                / %input{type: "file"}
             = text_field_tag "temp", nil, class: "form-control", readonly: true
-            / # = file_field_tag "file_name", class: "form-control", placeholder: "Pilih file."
           %span.help-block.file-name
             Pilih file yang ingin di enkripsi.
       .form-group
@@ -50,7 +48,18 @@
           %span.help-block.custom-iv
             Untuk alasan keamanan, custom key dan custom iv kamu akan turut di enkripsi.
       .form-group
-        .col-sm-offset-3.col-sm-5
+        .col-sm-offset-3.col-sm-9
+          .radio-inline
+            = label_tag("receive_type") do
+              = radio_button_tag "receive_type", "direct", false, id: "direct"
+              Download file
+          .radio-inline
+            = label_tag("receive_type") do
+              = radio_button_tag "receive_type", "email", true, id: "email"
+              Sent by email
+          %span.help-block.is_receive_type
+            Endesapp akan mengirim file yang telah di enkripsi beserta keynya melalui email.
+
       .form-group
         .col-sm-offset-3.col-sm-5
           %a.btn.btn-default#encrypt_btn
@@ -72,6 +81,18 @@
       }else{
         clear_rules();
         $('.container-custom').slideToggle('slow');
+      }
+    });
+
+    $('#direct').click(function(){
+      if (this.checked){
+        $('.is_receive_type').text("Download langsung file yang telah di enkripsi, namun key akan tetap dikirim melalui email.");
+      }
+    });
+
+    $('#email').click(function(){
+      if (this.checked){
+        $('.is_receive_type').text("Endesapp akan mengirim file yang telah di enkripsi beserta keynya melalui email.");
       }
     });
 
@@ -133,7 +154,6 @@
           .done(function(data){
             if (data.status == "OK"){
               $.notify({
-                title: '<strong>Selamat</strong>',
                 message: data.message,
               },{
                 type: 'success',

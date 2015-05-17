@@ -6,6 +6,8 @@ class MEncryptionsController < ApplicationController
   def encrypt_file
     enc_type            = params[:encryption_type]
     ext_file            = File.extname(params[:file_name].original_filename)
+    receive_type        = params[:receive_type]
+
     opts                = {
       :file         => params[:file_name],
       :is_keep_file => params[:is_keep_file],

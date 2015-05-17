@@ -34,7 +34,7 @@ class SistemsController < ApplicationController
         create_user_log
 
         # update login_count 
-        @a_user.login_count = @a_user.login_count.blank? ? 1  : @a_user.login_count.blank? + 1
+        @a_user.login_count = @a_user.login_count.blank? ? 1  : @a_user.login_count + 1
         @a_user.save
 
         flash[:success] = "#{SUCCESS_SIGNIN}#{@a_user.nickname}"

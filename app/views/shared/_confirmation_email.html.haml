@@ -1,0 +1,18 @@
+.modal.fade#modal_signup{tabindex: "-1", role: "dialog", "aria-labelledby"=> "Daftar", "aria-hidden"=> "true"}
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header.text-center
+        %h3.modal-title
+          %i.fa.fa-fw.fa-question-circle
+          %span Confirmation
+      .modal-body.text-center
+        %p 
+      .modal-footer.text-center
+        %button.btn.btn-default#btn_sign_up
+          %i.fa.fa-chevron-up.fa-fw
+          %span Daftar
+        %button.btn.btn-default{"data-dismiss"=> "modal"}
+          %i.fa-close.fa.fa-fw
+          %span Tutup
+
+:javascript 
