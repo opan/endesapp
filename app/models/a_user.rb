@@ -5,7 +5,7 @@ class AUser < ActiveRecord::Base
   #      gender, birthdate, created_at, updated_at
   validates_uniqueness_of :username, message: "Username has been used. Please choose the other one."
   validates_presence_of :username, :password, :encrypted_password, :nickname, :fullname, 
-                        :gender, :created_at, :updated_at
+                        :gender, :created_at, :updated_at, :uniq_folder_name
   validates_numericality_of :login_count, :message => "Only numbers allowed.", :allow_nil => true
   validates_confirmation_of :password, :message => "should match confirmation."
 end

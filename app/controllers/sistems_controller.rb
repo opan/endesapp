@@ -31,16 +31,20 @@ class SistemsController < ApplicationController
         session[:user_id_session]  = @a_user.id
         session[:uniq_user_session]= generate_secure_string
 
-        create_user_log  
+        create_user_log
+
+        # update login_count 
+        @a_user.login_count = @a_user.login_count.blank? ? 1  : @a_user.login_count.blank? + 1
+        @a_user.save
 
         flash[:success] = "#{SUCCESS_SIGNIN}#{@a_user.nickname}"
         redirect_to sistems_path
       else
-        flash[:error] = INVALID_SIGNIN
+        flash[:error]   = INVALID_SIGNIN
         redirect_to root_path
       end  
     else
-      flash[:error] = PASS_BLANK
+      flash[:error]     = PASS_BLANK
       redirect_to root_path
     end
   end
@@ -81,7 +85,8 @@ class SistemsController < ApplicationController
                       gender:             params[:gender], 
                       birthdate:          params[:birthdate], 
                       created_at:         ac_current_date, 
-                      updated_at:         ac_current_date
+                      updated_at:         ac_current_date,
+                      uniq_folder_name:   SecureRandom.hex(20)
                       )
 
     if @a_user.save

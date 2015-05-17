@@ -24,6 +24,24 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def ac_write_file(file_data, dir_path)
+    name =  file_data.original_filename
+    directory = dir_path
+    # create the file path
+    path = File.join(directory, name)
+
+    unless Dir.exists?(directory)
+      # Dir.mkdir(directory)
+      FileUtils.mkdir_p(directory)
+    end
+    # write the file
+    File.open(path, "wb") { |f| f.write(file_data.read) }
+  end
+
+  def ac_remove_file(dir_path)
+    FileUtils.rm_rf(dir_path)
+  end
+
   protected
 
   def authenticate_user_login?

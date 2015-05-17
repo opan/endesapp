@@ -16,7 +16,7 @@
             = text_field_tag "temp", nil, class: "form-control", readonly: true
             / # = file_field_tag "file_name", class: "form-control", placeholder: "Pilih file."
           %span.help-block.file-name
-            Pilih file yang ingin di enkripsi. (*csv/*CSV)
+            Pilih file yang ingin di enkripsi.
       .form-group
         = label_tag "encryption_type", "Encryption Type", class: "control-label col-sm-3 required"
         .col-sm-4
@@ -28,7 +28,7 @@
           .checkbox
             = label_tag("is_keep_file") do
               = check_box_tag "is_keep_file", true, false
-              Keep File?
+              Keep File ?
           %span.help-block
             Mengizinkan Endesapp menyimpan hasil enksripsi.
       .form-group
@@ -91,7 +91,7 @@
         },
         custom_key: {
           required: true,
-          minlength: 10
+          minlength: 24
         },
         custom_iv: {
           required: true,
