@@ -83,10 +83,19 @@ module Encrypted
         FileUtils.mkdir_p(dir_path)
       end
 
-      write_file      = File.new(file_path, "w")
-      # ac_write_file()
-      write_file.write(Base64.encode64(cipher_text))
-      write_file.close
+      File.open(file_path, "wb") {|f| f.write(cipher_text)}
+      # write_file      = File.new(file_path, "w")
+      
+      # write_file.write(Base64.encode64(cipher_text))
+      # write_file.close
     end
+
+    result            = {
+      :hashed_keys => hashed_keys.to_json,
+      :encrypted_keys => encrypted_keys.to_json,
+      :is_custom_key => is_custom_key,
+      :is_keep_file => is_keep_file,
+      :file_name => file.original_filename
+    }
   end
 end

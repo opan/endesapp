@@ -129,7 +129,27 @@
           data: new FormData(form),
           processData: false,
           contentType: false
-        });
+        })
+          .done(function(data){
+            if (data.status == "OK"){
+              $.notify({
+                title: '<strong>Selamat</strong>',
+                message: data.message,
+              },{
+                type: 'success',
+                delay: 5000,
+                animate: {
+                  enter: 'animated fadeInDown',
+                  exit: 'animated fadeOutUp'
+                }
+              });
+            }else{
+
+            }
+          })
+          .fail(function(jqXHR, statusText){
+            alert("Some error occured: " +statusText);
+          });
       }
     });
   });

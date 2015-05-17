@@ -1,3 +1,6 @@
 class UserMailer < ActionMailer::Base
-  default from: "from@example.com"
+  def send_data_to_user
+    
+  end
+
 end
