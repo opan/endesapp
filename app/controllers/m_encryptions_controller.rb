@@ -6,9 +6,10 @@ class MEncryptionsController < ApplicationController
   def encrypt_file
     enc_type            = params[:encryption_type]
     ext_file            = File.extname(params[:file_name].original_filename)
-    receive_type        = params[:receive_type]
+    @receive_type       = params[:receive_type]
+    @status             = "success"
 
-    opts                = {
+    @opts               = {
       :file         => params[:file_name],
       :is_keep_file => params[:is_keep_file],
       :custom_key   => params[:custom_key],
@@ -17,57 +18,46 @@ class MEncryptionsController < ApplicationController
       :enc_type     => enc_type
     }
 
+    unless ac_check_extfile(ext_file)
+      @status           = "danger"
+      @message          = UNPERMIT_EXTFILE           
+    end
+
     case enc_type
     when "3" # triple des
-      if check_extfile(ext_file)
-        result            = enc_triple_des(opts)
-        m_encrypts        = MEncrypt.new(
-                            encrypt_id: ac_counter_big_int(MEncrypt, 'encrypt_id'), 
-                            encryption_type: opts[:enc_type].to_i, 
-                            file_name: params[:file_name].original_filename, 
-                            created_by: ac_current_user.username, 
-                            updated_by: ac_current_user.username, 
-                            created_at: ac_current_date, 
-                            updated_at: ac_current_date, 
-                            username: ac_current_user.username, 
-                            hashed_keys: result[:hashed_keys].to_json, 
-                            encrypted_keys: result[:encrypted_keys].to_json, 
-                            is_keep_file: result[:is_keep_file], 
-                            is_custom_key: result[:is_custom_key]
-                          )
-
-        if m_encrypts.save
-          if receive_type.eql? "direct"
-            @message        = SUCCESS_ENCRYPT_WITH_DIRECT
-          else
-            @message        = SUCCESS_ENCRYPT_WITH_EMAIL
-          end
-
-          email_gateway(result, receive_type)
-          @status         = "success"
-
-        else
-          @status         = "danger"
-          @message        = m_encrypts.errors.full_messages
-        end
-      else
-        @status           = "danger"
-        @message          = UNPERMIT_EXTFILE           
+      if @status.eql? "success"
+        @result           = enc_triple_des(@opts)
+        create_encrypt_log
       end
     end
 
-    render json: {message: @message, status: @status, receive_type: receive_type}
+    if ac_check_extfile(ext_file)
+      render json: {message: @message, status: @status, receive_type: @receive_type, path: @result[:file_path], 
+                    file_name: @result[:file_name], keep_file: @result[:is_keep_file]
+                  }
+    else
+      render json: {message: @message, status: @status, receive_type: @receive_type}
+    end
+  end
+
+  def download_file
+    cookies['fileDownload'] = 'true'
+
+    file_path       = params[:path]
+    file_name       = params[:file_name]
+    keep_file       = params[:keep_file]
+
+    if keep_file.eql?("true")
+      send_file(file_path, filename: file_name)
+    else
+      file          = File.open(file_path)
+      data          = file.read
+      ac_remove_file(file_path)
+      send_data(data, filename: file_name)
+    end
   end
 
   private
-
-  def check_extfile(ext_file)
-    if (ext_file == '.txt' || ext_file == '.TXT' || ext_file == '.csv' || ext_file == '.CSV')
-      true
-    else
-      false
-    end
-  end
 
   def email_gateway(opts = {}, receive_type)
     if receive_type.eql? "direct"
@@ -75,9 +65,41 @@ class MEncryptionsController < ApplicationController
     else
       UserMailer.send_email_file_and_key(opts, ac_current_user).deliver
     end
-
-    if !opts[:is_keep_file]
+    
+    if !opts[:is_keep_file] && @receive_type.eql?("email")
       ac_remove_file(opts[:file_path])
+    end
+  end
+
+  def create_encrypt_log
+    m_encrypts        = MEncrypt.new(
+                        encrypt_id:       ac_counter_big_int(MEncrypt, 'encrypt_id'), 
+                        encryption_type:  @opts[:enc_type].to_i, 
+                        file_name:        params[:file_name].original_filename, 
+                        created_by:       ac_current_user.username, 
+                        updated_by:       ac_current_user.username, 
+                        created_at:       ac_current_date, 
+                        updated_at:       ac_current_date, 
+                        username:         ac_current_user.username, 
+                        hashed_keys:      @result[:hashed_keys].to_json, 
+                        encrypted_keys:   @result[:encrypted_keys].to_json, 
+                        is_keep_file:     @result[:is_keep_file], 
+                        is_custom_key:    @result[:is_custom_key]
+                      )
+
+    if m_encrypts.save
+      if @receive_type.eql? "direct"
+        @message      = SUCCESS_ENCRYPT_WITH_DIRECT
+      else
+        @message      = SUCCESS_ENCRYPT_WITH_EMAIL
+      end
+
+      email_gateway(@result, @receive_type)
+      @status         = "success"
+
+    else
+      @status         = "danger"
+      @message        = m_encrypts.errors.full_messages
     end
   end
 end

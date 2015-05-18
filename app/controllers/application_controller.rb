@@ -42,6 +42,15 @@ class ApplicationController < ActionController::Base
     FileUtils.rm_rf(dir_path)
   end
 
+  def ac_check_extfile(ext_file)
+    if (ext_file == '.txt' || ext_file == '.TXT' || ext_file == '.csv' || ext_file == '.CSV' ||
+        ext_file == '.text')
+      true
+    else
+      false
+    end
+  end
+
   protected
 
   def authenticate_user_login?
@@ -53,7 +62,7 @@ class ApplicationController < ActionController::Base
   def authenticate_user_session?
     unless session[:uniq_user_session].blank?
       a_users   = AUser.find(session[:user_id_session])
-      flash[:notice] = "#{SUCCESS_SIGNIN}#{a_users.nickname}"
+      flash[:success] = "#{SUCCESS_SIGNIN}#{a_users.nickname}"
 
       redirect_to sistems_path
     end

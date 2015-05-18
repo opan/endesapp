@@ -40,11 +40,11 @@ class SistemsController < ApplicationController
         flash[:success] = "#{SUCCESS_SIGNIN}#{@a_user.nickname}"
         redirect_to sistems_path
       else
-        flash[:error]   = INVALID_SIGNIN
+        flash[:danger]   = INVALID_SIGNIN
         redirect_to root_path
       end  
     else
-      flash[:error]     = PASS_BLANK
+      flash[:danger]     = PASS_BLANK
       redirect_to root_path
     end
   end
@@ -96,12 +96,12 @@ class SistemsController < ApplicationController
       session[:uniq_user_session]= generate_secure_string 
       create_user_log
 
-      flash[:notice] = @message
+      flash[:success] = @message
       redirect_to sistems_path 
     else
       @message      = @a_user.errors.full_messages
 
-      flash[:error] = @message
+      flash[:danger] = @message
       redirect_to root_path
     end
 

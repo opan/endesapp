@@ -12,15 +12,38 @@
                 Pilih File
                 &hellip;
                 = file_field_tag "file_name"
-                / %input{type: "file"}
             = text_field_tag "temp", nil, class: "form-control", readonly: true
-            / # = file_field_tag "file_name", class: "form-control", placeholder: "Pilih file."
           %span.help-block.file-name
-            Pilih file yang ingin di dekripsi. (*csv/*CSV)
+            Pilih file yang ingin di dekripsi.
       .form-group
         = label_tag "decryption_type", "Decryption Type", class: "control-label col-sm-3 required"
         .col-sm-4
           = select_tag "decryption_type", options_from_collection_for_select(list_enc_type, 'lov_id','lov_name') , include_blank: false, class: "form-control", id: "decryption_type", placeholder: "Decryption Type"
+          %span.help-block
+            Pilih tipe enkripsi.
+      .form-group
+        = label_tag "key", "Key Encryption", class: "control-label col-sm-3 required"
+        .col-sm-8
+          = password_field_tag "key", nil, class: "form-control", id: "key", placeholder: "Your encryption key"
+      .form-group
+        = label_tag "iv", "Init Vector", class: "control-label col-sm-3 required"
+        .col-sm-8
+          = password_field_tag "iv", nil, class: "form-control", id: "iv", placeholder: "Your Init Vector encryption"
+          %span.help-block
+            Masukkan Key dan Init Vector.
+      .form-group
+        .col-sm-offset-3.col-sm-9
+          .radio-inline
+            = label_tag("receive_type") do
+              = radio_button_tag "receive_type", "direct", false, id: "direct"
+              Download file
+          .radio-inline
+            = label_tag("receive_type") do
+              = radio_button_tag "receive_type", "email", true, id: "email"
+              Sent by email
+          %span.help-block.is_receive_type
+            Endesapp akan mengirim file yang telah di enkripsi beserta keynya melalui email.
+
       .form-group
         .col-sm-offset-3.col-sm-5
           %a.btn.btn-default#decrypt_btn
@@ -41,6 +64,18 @@
       });
     });
 
+    $('#direct').click(function(){
+      if (this.checked){
+        $('.is_receive_type').text("Download langsung file yang telah di enkripsi, namun key akan tetap dikirim melalui email.");
+      }
+    });
+
+    $('#email').click(function(){
+      if (this.checked){
+        $('.is_receive_type').text("Endesapp akan mengirim file yang telah di enkripsi beserta keynya melalui email.");
+      }
+    });
+
     $('#frm_decrypt').validate({
       rules: {
         file_name: {
@@ -48,14 +83,28 @@
         },
         decryption_type: {
           required: true
+        },
+        iv: {
+          required: true,
+          minlength: 8
+        },
+        key: {
+          required: true,
+          minlength: 24
         }
       },
       messages: {
         file_name: {
-          required: "Please choose file you to encrypt."
+          required: "Please choose file you want to decrypt."
         },
         decryption_type: {
           required: "Please choose decryption type you want to used."
+        },
+        iv: {
+          required: "Please input your Init Vector."
+        },
+        key: {
+          required: "Please input your Key."
         }
       },
       errorPlacement: function(error, element){
@@ -66,7 +115,41 @@
         }
       },
       submitHandler: function(form){
-        
+        alert('opan');
+        /*
+        $.ajax({
+          url: "#{}",
+          method: "post",
+          async: false,
+          data: new FormData(form),
+          processData: false,
+          contentType: false
+        })
+          .done(function(data){
+            if (data.status == "success"){
+              $.notify({
+                title: '<strong>Yeay ! </strong>',
+                message: data.message
+              },{
+                type: data.status
+              });
+
+              if (data.receive_type == "direct"){
+                
+              }
+            }else{
+              $.notify({
+                title: '<strong>Upps ! </strong>',
+                message: data.message
+              },{
+                type: data.status
+              });
+            }
+          })
+          .fail(function(jqXHR, statusText){
+            alert("Some error occured: " +statusText);
+          });
+          */
       }
     });
   });

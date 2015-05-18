@@ -403,6 +403,10 @@ Start custom CSS. Opan
     background-color: rgba(255, 255, 255, 0);
 }
 
+.datepicker {
+    background-color: #8D8585;
+}
+
 .dropdown-menu li a{
     color: #fff;
 }

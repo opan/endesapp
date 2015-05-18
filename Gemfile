@@ -51,6 +51,5 @@ gem 'haml-rails'
 # Pagination
 gem 'kaminari'
 
-# gem 'momentjs-rails', '>= 2.9.0'
-# gem 'bootstrap3-datetimepicker-rails', '~> 4.7.14'
-
+# Jquery file download
+gem 'jquery_file_download-rails'

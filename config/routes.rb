@@ -17,6 +17,7 @@ Rails.application.routes.draw do
 
   resources :m_encryptions, :only => [:index] do
     collection { post :encrypt_file, to: "m_encryptions#encrypt_file"}
+    collection { get :download_file, to: "m_encryptions#download_file"}
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
