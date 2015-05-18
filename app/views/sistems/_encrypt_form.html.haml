@@ -152,19 +152,24 @@
           contentType: false
         })
           .done(function(data){
-            if (data.status == "OK"){
+            if (data.status == "success"){
               $.notify({
-                message: data.message,
+                title: '<strong>Yeay ! </strong>',
+                message: data.message
               },{
-                type: 'success',
-                delay: 5000,
-                animate: {
-                  enter: 'animated fadeInDown',
-                  exit: 'animated fadeOutUp'
-                }
+                type: data.status
               });
-            }else{
 
+              if (data.receive_type == "direct"){
+                
+              }
+            }else{
+              $.notify({
+                title: '<strong>Upps ! </strong>',
+                message: data.message
+              },{
+                type: data.status
+              });
             }
           })
           .fail(function(jqXHR, statusText){

@@ -35,20 +35,28 @@ class MEncryptionsController < ApplicationController
                             is_keep_file: result[:is_keep_file], 
                             is_custom_key: result[:is_custom_key]
                           )
+
         if m_encrypts.save
-          @message        = SUCCESS_ENCRYPT
-          @status         = "OK"
+          if receive_type.eql? "direct"
+            @message        = SUCCESS_ENCRYPT_WITH_DIRECT
+          else
+            @message        = SUCCESS_ENCRYPT_WITH_EMAIL
+          end
+
+          email_gateway(result, receive_type)
+          @status         = "success"
+
         else
+          @status         = "danger"
           @message        = m_encrypts.errors.full_messages
         end
       else
+        @status           = "danger"
         @message          = UNPERMIT_EXTFILE           
       end
-    else
-
     end
 
-    render json: {message: @message, status: @status}
+    render json: {message: @message, status: @status, receive_type: receive_type}
   end
 
   private
@@ -58,6 +66,18 @@ class MEncryptionsController < ApplicationController
       true
     else
       false
+    end
+  end
+
+  def email_gateway(opts = {}, receive_type)
+    if receive_type.eql? "direct"
+      UserMailer.send_email_only_key(opts, ac_current_user).deliver
+    else
+      UserMailer.send_email_file_and_key(opts, ac_current_user).deliver
+    end
+
+    if !opts[:is_keep_file]
+      ac_remove_file(opts[:file_path])
     end
   end
 end

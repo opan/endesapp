@@ -74,8 +74,9 @@ module Encrypted
     cipher_text       << cipher.final
     ac_remove_file(dir_path)
 
-    if is_keep_file
-      file_name       = "encrypted_#{file.original_filename}"
+    file_name       = "encrypted_#{file.original_filename}"
+    
+    # if is_keep_file
       dir_path        = "#{Rails.root.join('users', folder_name, 'encrypted')}"
       file_path       = "#{File.join(dir_path, file_name)}"
 
@@ -88,14 +89,19 @@ module Encrypted
       
       # write_file.write(Base64.encode64(cipher_text))
       # write_file.close
-    end
+    # end
 
     result            = {
-      :hashed_keys => hashed_keys.to_json,
+      :hashed_keys    => hashed_keys.to_json,
       :encrypted_keys => encrypted_keys.to_json,
-      :is_custom_key => is_custom_key,
-      :is_keep_file => is_keep_file,
-      :file_name => file.original_filename
+      :is_custom_key  => is_custom_key,
+      :is_keep_file   => is_keep_file,
+      :file_name      => file.original_filename,
+      :file_path      => file_path,
+      :key            => key,
+      :iv             => iv,
+      :file_name      => file_name,
+      :is_keep_file   => is_keep_file
     }
   end
 end

@@ -17,8 +17,10 @@ module ApplicationHelper
       concat(javascript_tag("
                   $(function(){
                     $.notify({
-                      message: '#{message}',
+                      message: '#{message}'
+                    },{
                       type: '#{msg_type}',
+                      delay: 5000,
                       allow_dismiss: true,
                       animate: {
                         enter: 'animated fadeInRight',
