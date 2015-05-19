@@ -2,14 +2,12 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  resource :home, :only => [:index] do
-    collection do
-      get 'modal_signup'
-      get 'modal_signin'
-    end
+  resources :home, :only => [:index] do
+    collection { get :modal_signup, to: "home#modal_signup" }
+    collection { get :modal_signin, to: "home#modal_signin" }
   end
 
-  resource :sistems, :only => [:index] do
+  resources :sistems, :only => [:index] do
     collection { post :sign_in      ,   to: "sistems#sign_in"}
     collection { post :sign_up      ,   to: "sistems#sign_up"}
     collection { get  :sign_out     ,  to: "sistems#sign_out"}
@@ -26,7 +24,7 @@ Rails.application.routes.draw do
 
   resource :m_decryptions, :only => [:index] do
     collection do
-      post 'decrypt_file'
+      get 'decrypt_file'
     end
   end
 
