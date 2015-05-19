@@ -2,12 +2,14 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
-  resources :home, :only => [:index] do
-    collection { get :modal_signup, to: "home#modal_signup" }
-    collection { get :modal_signin, to: "home#modal_signin" }
+  resource :home, :only => [:index] do
+    collection do
+      get 'modal_signup'
+      get 'modal_signin'
+    end
   end
 
-  resources :sistems, :only => [:index] do
+  resource :sistems, :only => [:index] do
     collection { post :sign_in      ,   to: "sistems#sign_in"}
     collection { post :sign_up      ,   to: "sistems#sign_up"}
     collection { get  :sign_out     ,  to: "sistems#sign_out"}
@@ -15,9 +17,17 @@ Rails.application.routes.draw do
     collection { get  :decrypt_form ,  to: "sistems#decrypt_form"}
   end
 
-  resources :m_encryptions, :only => [:index] do
-    collection { post :encrypt_file, to: "m_encryptions#encrypt_file"}
-    collection { get :download_file, to: "m_encryptions#download_file"}
+  resource :m_encryptions, :only => [:index] do
+    collection do
+      post 'encrypt_file'
+      get 'download_file'
+    end
+  end
+
+  resource :m_decryptions, :only => [:index] do
+    collection do
+      post 'decrypt_file'
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

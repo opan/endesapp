@@ -162,13 +162,6 @@
 
               if (data.receive_type == "direct"){
                 $.fileDownload("#{download_file_m_encryptions_path}?path="+data.path+"&keep_file="+data.keep_file+"&file_name="+data.file_name);
-                /*
-                $.get("#{download_file_m_encryptions_path}",{
-                  path: data.path,
-                  keep_file: data.keep_file,
-                  file_name: data.file_name
-                });
-                */
               }
             }else{
               $.notify({

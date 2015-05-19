@@ -66,13 +66,13 @@
 
     $('#direct').click(function(){
       if (this.checked){
-        $('.is_receive_type').text("Download langsung file yang telah di enkripsi, namun key akan tetap dikirim melalui email.");
+        $('.is_receive_type').text("Download langsung file yang telah di dekripsi.");
       }
     });
 
     $('#email').click(function(){
       if (this.checked){
-        $('.is_receive_type').text("Endesapp akan mengirim file yang telah di enkripsi beserta keynya melalui email.");
+        $('.is_receive_type').text("Endesapp akan mengirim file yang telah di dekripsi beserta keynya melalui email.");
       }
     });
 
@@ -115,10 +115,8 @@
         }
       },
       submitHandler: function(form){
-        alert('opan');
-        /*
         $.ajax({
-          url: "#{}",
+          url: "#{decrypt_file_m_decryptions_path}",
           method: "post",
           async: false,
           data: new FormData(form),
@@ -149,7 +147,6 @@
           .fail(function(jqXHR, statusText){
             alert("Some error occured: " +statusText);
           });
-          */
       }
     });
   });

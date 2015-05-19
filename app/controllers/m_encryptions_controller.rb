@@ -14,8 +14,7 @@ class MEncryptionsController < ApplicationController
       :is_keep_file => params[:is_keep_file],
       :custom_key   => params[:custom_key],
       :custom_iv    => params[:custom_iv],
-      :is_custom_key=> params[:is_custom_key],
-      :enc_type     => enc_type
+      :is_custom_key=> params[:is_custom_key]
     }
 
     unless ac_check_extfile(ext_file)
@@ -65,7 +64,7 @@ class MEncryptionsController < ApplicationController
     else
       UserMailer.send_email_file_and_key(opts, ac_current_user).deliver
     end
-    
+
     if !opts[:is_keep_file] && @receive_type.eql?("email")
       ac_remove_file(opts[:file_path])
     end
