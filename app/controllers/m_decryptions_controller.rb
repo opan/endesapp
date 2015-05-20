@@ -90,7 +90,7 @@ class MDecryptionsController < ApplicationController
 
   def email_gateway(opts = {})
     if @receive_type.eql? "email"
-      UserMailer.send_email_file_decrypted(opts, ac_current_user)
+      UserMailer.send_email_file_decrypted(opts, ac_current_user).deliver
       ac_remove_file(opts[:file_path])
     end
   end

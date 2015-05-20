@@ -32,7 +32,6 @@ class UserMailer < ActionMailer::Base
     file_name       = opts[:file_name]
 
     @nickname       = current_user.nickname
-
     user_email      = %("#{current_user.fullname}" <#{current_user.username}>)
     subject         = "[Endesapp] File yang telah di dekripsi."
 
