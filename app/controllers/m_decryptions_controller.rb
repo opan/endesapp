@@ -24,7 +24,14 @@ class MDecryptionsController < ApplicationController
     when "3" # triple des
       if @status.eql? "success"
         @result         = dec_triple_des(@opts)
-        create_decrypt_log
+
+        if @result[:status].eql? "success"
+          create_decrypt_log
+        else
+          @status         = @result[:status]
+          @message        = "#{@result[:message]}. #{FAILED_DECRYPT}"
+        end
+
       end
     end
 

@@ -14,3 +14,5 @@ UNPERMIT_EXTFILE            = "Pastikan file yang ingin di enkripsi berektensi (
 UNPERMIT_EXTFILE_DEC        = "Pastikan file yang ingin di dekripsi berektensi (*txt/*TXT) / (*csv/ *CSV) / *text."
 SUCCESS_DECRYPT_WITH_EMAIL  = "File kamu berhasil di dekripsi.\nFile beserta Key dekripsi telah terkirim menuju email kamu."
 SUCCESS_DECRYPT_WITH_DIRECT = "File kamu berhasil di dekripsi."
+FAILED_DECRYPT              = "Pastikan Key dan Init Vector yang kamu masukkan benar."
+FAILED_ENCRYPT              = "Terdapat masalah dalam proses enkripsi. Segera hubungin administrator."

@@ -22,7 +22,15 @@ module Decrypted
     encoded_content   = Base64.encode64(encrypted_content)
 
     cipher_text       = cipher.update(Base64.decode64(encoded_content))
-    cipher_text       << cipher.final
+
+    begin
+      cipher_text       << cipher.final
+      status          = "success"
+      message         = "OK"
+    rescue Exception => e
+      status          = "danger"
+      message         = e.message
+    end
 
     ac_remove_file(dir_path)
 
@@ -38,7 +46,9 @@ module Decrypted
 
     result            = {
       :file_path => file_path_temp,
-      :file_name => file_name
+      :file_name => file_name,
+      :message   => message,
+      :status    => status
     }
   end
 end

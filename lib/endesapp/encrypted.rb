@@ -73,7 +73,16 @@ module Encrypted
     
     # cipher_text       = cipher.update(Base64.decode64(secret_text))
     cipher_text       = cipher.update(secret_text)
-    cipher_text       << cipher.final
+
+    begin
+      cipher_text       << cipher.final
+      status          = "success"
+      message         = "OK"
+    rescue Exception => e
+      status          = "danger"
+      message         = e.message
+    end
+
     ac_remove_file(dir_path)
 
     file_name       = "encrypted_#{file.original_filename}"
@@ -103,7 +112,9 @@ module Encrypted
       :key            => key,
       :iv             => iv,
       :file_name      => file_name,
-      :is_keep_file   => is_keep_file
+      :is_keep_file   => is_keep_file,
+      :status         => status,
+      :message        => message
     }
   end
 end

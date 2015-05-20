@@ -26,7 +26,13 @@ class MEncryptionsController < ApplicationController
     when "3" # triple des
       if @status.eql? "success"
         @result           = enc_triple_des(@opts)
-        create_encrypt_log
+
+        if @result[:status].eql? "success"
+          create_encrypt_log
+        else
+          @status           = @result[:status]
+          @message          = "#{@result[:message]}. #{FAILED_ENCRYPT}"
+        end
       end
     end
 
