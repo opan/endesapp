@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   helper_method :ac_current_user
-  include Encrypted #!/lib/endesapp/encrypted
+  include Encrypted,  #!/lib/endesapp/encrypted.rb
+          Decrypted   #!/lib/endesapp/decrypted.rb
 
   def ac_current_date
     return DateTime.now.strftime(DATETIME_FORMAT).to_time

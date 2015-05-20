@@ -27,4 +27,16 @@ class UserMailer < ActionMailer::Base
     mail(to: user_email, subject: subject)
   end
 
+  def send_email_file_decrypted(opts = {}, current_user)
+    file_path       = opts[:file_path]
+    file_name       = opts[:file_name]
+
+    @nickname       = current_user.nickname
+
+    user_email      = %("#{current_user.fullname}" <#{current_user.username}>)
+    subject         = "[Endesapp] File yang telah di dekripsi."
+
+    attachments["#{file_name}"]      = File.read(file_path, encoding: "BINARY") 
+    mail(to: user_email, subject: subject)
+  end
 end

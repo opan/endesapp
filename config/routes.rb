@@ -3,8 +3,10 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :home, :only => [:index] do
-    collection { get :modal_signup, to: "home#modal_signup" }
-    collection { get :modal_signin, to: "home#modal_signin" }
+    collection do
+      get "modal_signup"
+      get "modal_signin"
+    end
   end
 
   resources :sistems, :only => [:index] do
@@ -24,7 +26,8 @@ Rails.application.routes.draw do
 
   resource :m_decryptions, :only => [:index] do
     collection do
-      get 'decrypt_file'
+      post 'decrypt_file'
+      get 'download_file'
     end
   end
 

@@ -86,7 +86,7 @@ class SistemsController < ApplicationController
                       birthdate:          params[:birthdate], 
                       created_at:         ac_current_date, 
                       updated_at:         ac_current_date,
-                      uniq_folder_name:   SecureRandom.hex(20)
+                      uniq_folder_name:   SecureRandom.hex(30)
                       )
 
     if @a_user.save

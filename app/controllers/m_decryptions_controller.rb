@@ -17,7 +17,7 @@ class MDecryptionsController < ApplicationController
 
     unless ac_check_extfile(ext_file)
       @status           = "danger"
-      @message          = UNPERMIT_EXTFILE           
+      @message          = UNPERMIT_EXTFILE_DEC           
     end
 
     case @decrypt_type
@@ -28,22 +28,40 @@ class MDecryptionsController < ApplicationController
       end
     end
 
-    render json: {status: @status, message: @message}
+    if ac_check_extfile(ext_file)
+      render json: {status: @status, message: @message, path: @result[:file_path], file_name: @result[:file_name], 
+                    receive_type: @receive_type}
+    else
+      render json: {status: @status, message: @message}
+    end
+  end
+
+  def download_file
+    cookies['fileDownload'] = 'true'
+
+    file_path       = params[:path]
+    file_name       = params[:file_name]
+
+    file            = File.open(file_path)
+    data            = file.read
+    ac_remove_file(file_path)
+
+    send_data(data, filename: file_name)
   end
 
   private
 
   def create_decrypt_log
     m_decrypts          = MDecrypt.new(
-                          decrypt_id: ac_counter_big_int(MEncrypt, 'encrypt_id'), 
-                          username:   ac_current_user.username, 
-                          decryption_type: @decrypt_type.to_i, 
-                          created_by: ac_current_user.username, 
-                          updated_by: ac_current_user.username, 
-                          file_name: params[:file_name].original_filename, 
-                          created_at: ac_current_date, 
-                          updated_at: ac_current_date, 
-                          receive_type: @receive_type
+                            decrypt_id: ac_counter_big_int(MDecrypt, 'decrypt_id'), 
+                            username:   ac_current_user.username, 
+                            decryption_type: @decrypt_type.to_i, 
+                            created_by: ac_current_user.username, 
+                            updated_by: ac_current_user.username, 
+                            file_name: params[:file_name].original_filename, 
+                            created_at: ac_current_date, 
+                            updated_at: ac_current_date, 
+                            receive_type: @receive_type
                           )
 
     if m_decrypts.save
@@ -55,10 +73,18 @@ class MDecryptionsController < ApplicationController
         @message          = SUCCESS_DECRYPT_WITH_DIRECT
       end
 
+      email_gateway(@result)
 
     else
       @status           = "danger"
       @message          = m_decrypts.errors.full_messages
+    end
+  end
+
+  def email_gateway(opts = {})
+    if @receive_type.eql? "email"
+      UserMailer.send_email_file_decrypted(opts, ac_current_user)
+      ac_remove_file(opts[:file_path])
     end
   end
 end

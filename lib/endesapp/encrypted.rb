@@ -35,8 +35,10 @@ module Encrypted
       key             = opts[:custom_key]
       iv              = opts[:custom_iv]
     else
-      key             = cipher.random_key
-      iv              = cipher.random_iv
+      # key             = cipher.random_key
+      # iv              = cipher.random_iv
+      key             = SecureRandom.base64(24)
+      iv              = SecureRandom.base64(8)
     end
 
     enc_string_key    = encrypt_password(key)

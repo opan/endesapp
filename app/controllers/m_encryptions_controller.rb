@@ -72,18 +72,18 @@ class MEncryptionsController < ApplicationController
 
   def create_encrypt_log
     m_encrypts        = MEncrypt.new(
-                        encrypt_id:       ac_counter_big_int(MEncrypt, 'encrypt_id'), 
-                        encryption_type:  @opts[:enc_type].to_i, 
-                        file_name:        params[:file_name].original_filename, 
-                        created_by:       ac_current_user.username, 
-                        updated_by:       ac_current_user.username, 
-                        created_at:       ac_current_date, 
-                        updated_at:       ac_current_date, 
-                        username:         ac_current_user.username, 
-                        hashed_keys:      @result[:hashed_keys].to_json, 
-                        encrypted_keys:   @result[:encrypted_keys].to_json, 
-                        is_keep_file:     @result[:is_keep_file], 
-                        is_custom_key:    @result[:is_custom_key]
+                          encrypt_id:       ac_counter_big_int(MEncrypt, 'encrypt_id'), 
+                          encryption_type:  @opts[:enc_type].to_i, 
+                          file_name:        params[:file_name].original_filename, 
+                          created_by:       ac_current_user.username, 
+                          updated_by:       ac_current_user.username, 
+                          created_at:       ac_current_date, 
+                          updated_at:       ac_current_date, 
+                          username:         ac_current_user.username, 
+                          hashed_keys:      @result[:hashed_keys].to_json, 
+                          encrypted_keys:   @result[:encrypted_keys].to_json, 
+                          is_keep_file:     @result[:is_keep_file], 
+                          is_custom_key:    @result[:is_custom_key]
                       )
 
     if m_encrypts.save
