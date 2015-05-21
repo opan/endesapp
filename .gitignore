@@ -17,3 +17,5 @@
 
 # Ignore all users encrypted file
 /users
+# Ignore application configuration
+/config/application.yml

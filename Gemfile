@@ -56,3 +56,4 @@ gem 'kaminari'
 
 # Jquery file download
 gem 'jquery_file_download-rails'
+gem "figaro"

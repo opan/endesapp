@@ -21,8 +21,8 @@ default: &default
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
   host: localhost
-  username: postgres
-  password: pekingroyaljelly
+  username: null
+  password: null
 
 development:
   <<: *default
@@ -81,8 +81,8 @@ development:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
-# production:
-#   <<: *default
-#   database: endesapp_production
+production:
+  <<: *default
+  database: endesapp_production
 #   username: endesapp
 #   password: <%= ENV['ENDESAPP_DATABASE_PASSWORD'] %>
