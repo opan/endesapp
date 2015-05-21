@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
 
   def ac_check_extfile(ext_file)
     if (ext_file == '.txt' || ext_file == '.TXT' || ext_file == '.csv' || ext_file == '.CSV' ||
-        ext_file == '.text')
+        ext_file == '.text' || ext_file == '.pdf' || ext_file == '.PDF')
       true
     else
       false

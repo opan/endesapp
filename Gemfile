@@ -29,11 +29,14 @@ group :development do
   gem 'spring'
   # Use debugger
   gem 'debugger'
-  
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end
 
-gem 'better_errors'
-gem 'binding_of_caller'
+group :production do
+  gem 'rails_12factor'
+end
+
 #composite primary keys, untuk multiple primary key pada relasi antar tabel/mode.
 gem 'composite_primary_keys' #, '~> 7.0.12'
 

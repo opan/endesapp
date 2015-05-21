@@ -5,7 +5,7 @@
     = form_tag('/', method: :post, authenticity_token: form_authenticity_token, remote: true, class: "form-horizontal", id: 'frm_decrypt', multipart: true) do
       .form-group
         = label_tag "file_name", "File Name", class: "control-label col-sm-3 required"
-        .col-sm-4
+        .col-sm-8
           .input-group
             %span.input-group-btn
               %span.btn.btn-default.btn-file
@@ -14,7 +14,7 @@
                 = file_field_tag "file_name"
             = text_field_tag "temp", nil, class: "form-control", readonly: true
           %span.help-block.file-name
-            Pilih file yang ingin di dekripsi.
+            Pilih file yang ingin di dekripsi. (Maximum ukuran file: 50MB)
       .form-group
         = label_tag "decryption_type", "Decryption Type", class: "control-label col-sm-3 required"
         .col-sm-4
@@ -79,7 +79,9 @@
     $('#frm_decrypt').validate({
       rules: {
         file_name: {
-          required: true
+          required: true,
+          filesize: [50, "MB"],
+          extension: "txt|csv|CSV|TXT|text|pdf|PDF"
         },
         decryption_type: {
           required: true
