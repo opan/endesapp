@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-
+ruby '2.0.0' 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.4'
 # Use postgresql as the database for Active Record
@@ -56,4 +56,4 @@ gem 'kaminari'
 
 # Jquery file download
 gem 'jquery_file_download-rails'
-gem "figaro"
+gem 'figaro'
