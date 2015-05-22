@@ -169,6 +169,9 @@ a:focus {
     font-size: 18px;
 }
 
+.intro .intro-body .intro-text-button {
+    font-size: 12px;
+}
 @media(min-width:768px) {
     .intro {
         height: 100%;
@@ -181,6 +184,10 @@ a:focus {
 
     .intro .intro-body .intro-text {
         font-size: 26px;
+    }
+
+    .intro .intro-body .intro-text-button {
+        font-size: 20px;
     }
 }
 

@@ -14,10 +14,30 @@ $(function(){
   });
   // stop setting default untuk bootstrap-notify
 
+  // start home
+  $('#btn_modal_sign_up').click(function(){
+    $.get('/home/modal_signup',function(data){
+      $('#html_modal_signup').append(data.signup);
+      $('#modal_signup').modal('show');
+    });
+  });
+
+  $('#btn_modal_sign_in').click(function(){
+    $.get('/home/modal_signin', function(data){
+      $('#html_modal_signin').append(data.signin);
+      $('#modal_signin').modal('show');
+    });
+  })
+
+  // stop home
+
   // hapus margin-right yang tercreate auto setelah close modal.
+
   $('#modal_signin, #modal_signup').on("hidden.bs.modal", function(){
     $('#page-top').removeAttr("style");
+    $('#html_modal_signin, #html_modal_signup').empty();
   });
+  
 
   // start clear form saat open modal
   $('[data-dismiss=modal]').on('click', function (e) {

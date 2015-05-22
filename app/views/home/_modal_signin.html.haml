@@ -55,4 +55,8 @@
       $('#frm_sign_in').submit();
     });
 
+    $('#modal_signin').on('hidden.bs.modal', function(e){
+      $('#html_modal_signin').empty();
+    });
+
   });
