@@ -11,6 +11,7 @@
 // about supported directives.
 //
 //= require jquery
+// require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.fileDownload
 //= require bootstrap.min
@@ -18,5 +19,5 @@
 //= require bootstrap-datepicker
 //= require jquery.validate
 //= require additional-methods
-//= require turbolinks
+// require turbolinks
 //= require_tree .

@@ -27,7 +27,7 @@ $(function(){
       $('#html_modal_signin').append(data.signin);
       $('#modal_signin').modal('show');
     });
-  })
+  });
 
   // stop home
 

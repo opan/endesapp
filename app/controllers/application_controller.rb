@@ -64,7 +64,7 @@ class ApplicationController < ActionController::Base
     unless session[:uniq_user_session].blank?
       a_users   = AUser.find(session[:user_id_session])
       flash[:success] = "#{SUCCESS_SIGNIN}#{a_users.nickname}"
-
+      debugger
       redirect_to sistems_path
     end
   end

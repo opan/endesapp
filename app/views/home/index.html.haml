@@ -1,5 +1,6 @@
 %nav.navbar.navbar-custom.navbar-fixed-top{role: "navigation"}
   .container
+    = flash_messages
     .navbar-header
       %button.navbar-toggle{type: "button","data-toggle"=> "collapse", "data-target"=> ".navbar-main-collapse"}
         %i.fa.fa-bars
@@ -15,7 +16,6 @@
           %a.page-scroll{href: "#tentang"} Tentang
         %li
           %a.page-scroll{href: "#mulai"} Mulai
-  = flash_messages
 %header.intro
   .intro-body
     .container
