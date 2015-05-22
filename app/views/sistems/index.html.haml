@@ -16,7 +16,7 @@
           %a.page-scroll{href: "#encrypt_decrypt"} Encrypt & Decrypt
         %li.dropdown
           %a.dropdown-toggle{href: "#", "data-target"=> "#{ac_current_user.nickname}", "data-toggle" => "dropdown"}
-            = ac_current_user.nickname
+            = current_user
             %b.caret
           %ul.dropdown-menu
             %li

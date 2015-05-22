@@ -36,4 +36,8 @@ module ApplicationHelper
     end
     nil
   end
+
+  def current_user
+    ac_current_user.nickname
+  end
 end
