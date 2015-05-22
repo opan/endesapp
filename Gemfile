@@ -35,6 +35,7 @@ end
 
 group :production do
   gem 'rails_12factor'
+  gem 'passenger'
 end
 
 #composite primary keys, untuk multiple primary key pada relasi antar tabel/mode.
