@@ -15,3 +15,14 @@
     = csrf_meta_tags
   %body{id: "page-top","data-spy"=> "scroll", "data-target"=>".navbar-fixed-top"}
     = yield
+  %footer
+    .container.text-center
+      %p
+        Copyright &copy; 
+        %a{href: "#{root_url}"} 
+          Endesapp 
+        2015. All Right Reserved. 
+      Made with a lot of 
+      %i.fa.fa-coffee .
+      %a{href: "https://twitter.com/opan_radiyallah"} 
+        Opan Mustopah
