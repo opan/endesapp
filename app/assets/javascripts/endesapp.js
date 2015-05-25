@@ -92,13 +92,39 @@ $(function(){
 
   // start sistem index
   $('#btn_encrypt').click(function(){
-    $.get('/sistems/encrypt_form', function(data){
-      $('#content').fadeOut(500, function(){
-        $('#content').empty();
-        $('#content').append(data.encrypt_form);
-      });
-      $('#content').fadeIn(500);
+    $.ajax({
+      xhr: function(){
+        var xhr = new window.XMLHttpRequest();
+
+        xhr.addEventListener("progress", function(evt){
+          if (evt.lengthComputable) {
+            var percentComplete = evt.loaded / evt.total;
+            //Do something with download progress
+            // console.log(percentComplete * 100);
+            // console.log(evt.loaded);
+            // console.log(evt.total);
+          }
+        }, false);
+        return xhr;
+      },
+      type: 'get',
+      url: '/sistems/encrypt_form',
+      dataType: 'json',
+      success: function(data){
+        $('#content').fadeOut(500, function(){
+          $('#content').empty();
+          $('#content').append(data.encrypt_form);
+        });
+        $('#content').fadeIn(500);
+      }
     });
+    // $.get('/sistems/encrypt_form', function(data){
+    //   $('#content').fadeOut(500, function(){
+    //     $('#content').empty();
+    //     $('#content').append(data.encrypt_form);
+    //   });
+    //   $('#content').fadeIn(500);
+    // });
   });
 
   $('#btn_decrypt').click(function(){

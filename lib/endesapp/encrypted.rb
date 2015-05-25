@@ -12,6 +12,19 @@ module Encrypted
     "#{SecureRandom.hex(15)}#{SecureRandom.base64}"
   end
 
+  def genereate_secure_random(length)
+    random_txt = SecureRandom.hex(length.to_i)
+
+    check      = AUser.where(uniq_folder_name: random_txt)
+
+    while check.length > 1
+      random_txt = SecureRandom.hex(length.to_i)
+      check      = AUser.where(uniq_folder_name: random_txt)
+    end
+
+    return random_txt
+  end
+
   def authenticate_user(opts = {})
     a_user      = AUser.where(username: opts[:username]).take
 
