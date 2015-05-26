@@ -16,7 +16,7 @@ class MEncryptionsController < ApplicationController
       :custom_iv    => params[:custom_iv],
       :is_custom_key=> params[:is_custom_key]
     }
-
+debugger
     unless ac_check_extfile(ext_file)
       @status           = "danger"
       @message          = UNPERMIT_EXTFILE           

@@ -92,6 +92,10 @@ $(function(){
 
   // start sistem index
   $('#btn_encrypt').click(function(){
+    $.loader.open({
+      title: 'Tunggu sebentar...'
+    });
+
     $.ajax({
       xhr: function(){
         var xhr = new window.XMLHttpRequest();
@@ -116,6 +120,7 @@ $(function(){
           $('#content').append(data.encrypt_form);
         });
         $('#content').fadeIn(500);
+        $.loader.close();
       }
     });
     // $.get('/sistems/encrypt_form', function(data){
@@ -128,12 +133,17 @@ $(function(){
   });
 
   $('#btn_decrypt').click(function(){
+    $.loader.open({
+      title: 'Tunggu sebentar...'
+    });
+
     $.get('/sistems/decrypt_form', function(data){
       $('#content').fadeOut(500, function(){
         $('#content').empty();
         $('#content').append(data.decrypt_form);
       });
       $('#content').fadeIn(500);
+      $.loader.close();
     });
   });
   // stop sistem index

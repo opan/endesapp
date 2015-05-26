@@ -149,12 +149,19 @@
         $.ajax({
           url: "#{encrypt_file_m_encryptions_path}",
           method: "post",
-          async: false,
+          async: true,
           data: new FormData(form),
           processData: false,
-          contentType: false
+          contentType: false,
+          beforeSend: function(){
+            $('body').loader({
+              title: 'Tunggu sebentar, file kamu sedang di proses...'
+            });
+          }
         })
           .done(function(data){
+            $.loader.close();
+
             if (data.status == "success"){
               $.notify({
                 title: '<strong>Yeay ! </strong>',
@@ -176,6 +183,7 @@
             }
           })
           .fail(function(jqXHR, statusText){
+            $.loader.close();
             alert("Some error occured: " +statusText);
           });
       }
