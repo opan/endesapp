@@ -25,7 +25,44 @@ class MEncryptionsController < ApplicationController
     case enc_type
     when "3" # triple des
       if @status.eql? "success"
-        @result           = enc_triple_des(@opts)
+        @opts[:algo_type] = "des3"
+        @result           = encryption_process(@opts)
+
+        if @result[:status].eql? "success"
+          create_encrypt_log
+        else
+          @status           = @result[:status]
+          @message          = "#{@result[:message]}. #{FAILED_ENCRYPT}"
+        end
+      end
+    when "4" # aes-128-cbc
+      if @status.eql? "success"
+        @opts[:algo_type] = "AES-128-CBC"
+        @result           = encryption_process(@opts)
+
+        if @result[:status].eql? "success"
+          create_encrypt_log
+        else
+          @status           = @result[:status]
+          @message          = "#{@result[:message]}. #{FAILED_ENCRYPT}"
+        end
+      end
+    when "5" # AES-192-CBC
+      if @status.eql? "success"
+        @opts[:algo_type] = "AES-192-CBC"
+        @result           = encryption_process(@opts)
+
+        if @result[:status].eql? "success"
+          create_encrypt_log
+        else
+          @status           = @result[:status]
+          @message          = "#{@result[:message]}. #{FAILED_ENCRYPT}"
+        end
+      end
+    when "6" # AES-256-CBC
+      if @status.eql? "success"
+        @opts[:algo_type] = "AES-256-CBC"
+        @result           = encryption_process(@opts)
 
         if @result[:status].eql? "success"
           create_encrypt_log

@@ -1,11 +1,12 @@
 module Decrypted
-  def dec_triple_des(opts = {})
+  def decryption_process(opts = {})
     file              = opts[:file]
     key               = opts[:key]
     iv                = opts[:iv]
+    algorithms        = opts[:algo_type]
     folder_name       = ac_current_user.uniq_folder_name
 
-    cipher            = OpenSSL::Cipher::Cipher.new("des3")
+    cipher            = OpenSSL::Cipher::Cipher.new(algorithms)
     cipher.decrypt
 
     cipher.key        = key

@@ -35,13 +35,14 @@ module Encrypted
     end
   end
 
-  def enc_triple_des(opts = {})
+  def encryption_process(opts = {})
     is_keep_file      = opts[:is_keep_file]
     is_custom_key     = opts[:is_custom_key]
     file              = opts[:file]
+    algorithms        = opts[:algo_type]
     folder_name       = ac_current_user.uniq_folder_name
 
-    cipher            = OpenSSL::Cipher::Cipher.new("des3")
+    cipher            = OpenSSL::Cipher::Cipher.new(algorithms)
     cipher.encrypt
 
     if is_custom_key
@@ -51,7 +52,7 @@ module Encrypted
       # key             = cipher.random_key
       # iv              = cipher.random_iv
       key             = SecureRandom.base64(24)
-      iv              = SecureRandom.base64(8)
+      iv              = SecureRandom.base64(20)
     end
 
     enc_string_key    = encrypt_password(key)

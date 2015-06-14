@@ -15,6 +15,8 @@
             = text_field_tag "temp", nil, class: "form-control", readonly: true
           %span.help-block.file-name
             Pilih file yang ingin di enkripsi. (Maximum ukuran file: 50MB)
+            %br
+            File yang didukung: *txt, *csv, *text, *pdf
       .form-group
         = label_tag "encryption_type", "Encryption Type", class: "control-label col-sm-3 required"
         .col-sm-4
@@ -206,7 +208,7 @@
 
     $('#custom_iv').rules('add',{
       required: true,
-      minlength: 8,
+      minlength: 20,
       messages: {
         required: "Please input your custom init vector."
       }

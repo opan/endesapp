@@ -23,7 +23,8 @@ class MDecryptionsController < ApplicationController
     case @decrypt_type
     when "3" # triple des
       if @status.eql? "success"
-        @result         = dec_triple_des(@opts)
+        @opts[:algo_type] = "des3"
+        @result           = decryption_process(@opts)
 
         if @result[:status].eql? "success"
           create_decrypt_log
@@ -31,7 +32,42 @@ class MDecryptionsController < ApplicationController
           @status         = @result[:status]
           @message        = "#{@result[:message]}. #{FAILED_DECRYPT}"
         end
+      end
+    when "4" # aes-128-cbc
+      if @status.eql? "success"
+        @opts[:algo_type] = "AES-128-CBC"
+        @result           = decryption_process(@opts)
 
+        if @result[:status].eql? "success"
+          create_decrypt_log
+        else
+          @status         = @result[:status]
+          @message        = "#{@result[:message]}. #{FAILED_DECRYPT}"
+        end
+      end
+    when "5" # AES-192-CBC
+      if @status.eql? "success"
+        @opts[:algo_type] = "AES-192-CBC"
+        @result           = decryption_process(@opts)
+
+        if @result[:status].eql? "success"
+          create_decrypt_log
+        else
+          @status         = @result[:status]
+          @message        = "#{@result[:message]}. #{FAILED_DECRYPT}"
+        end
+      end
+    when "6" # AES-256-CBC
+      if @status.eql? "success"
+        @opts[:algo_type] = "AES-256-CBC"
+        @result           = decryption_process(@opts)
+
+        if @result[:status].eql? "success"
+          create_decrypt_log
+        else
+          @status         = @result[:status]
+          @message        = "#{@result[:message]}. #{FAILED_DECRYPT}"
+        end
       end
     end
 
